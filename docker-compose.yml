@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:15
+    container_name: clinic-duarte-db
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: clinic_admin_db
+    ports:
+      - "5433:5432" # Puerto 5433 para evitar el conflicto con tu local
