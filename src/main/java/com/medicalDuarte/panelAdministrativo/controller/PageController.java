@@ -21,9 +21,16 @@ public class PageController {
 
     // --- ENDPOINTS PÚBLICOS (Para la web de la clínica) ---
 
-    @GetMapping("/{slug}")
-    public ResponseEntity<Page> getBySlug(@PathVariable String slug) {
-        // La web pública de Vue consumirá este endpoint para renderizar todo el contenido
+    @GetMapping("/public/detail")
+    public ResponseEntity<Page> getPublicPageBySlug(@RequestParam("slug") String slug) {
+        // La API ahora se consume así: /api/pages/public/detail?slug=servicios/dermatologia
+        return ResponseEntity.ok(pageService.getPublicPageBySlug(slug));
+    }
+
+    @GetMapping("/detail")
+    @PreAuthorize("hasAnyRole('ADMIN', 'EDITOR')")
+    public ResponseEntity<Page> getAdminPageBySlug(@RequestParam("slug") String slug) {
+        // La API ahora se consume así: /api/pages/detail?slug=servicios/dermatologia
         return ResponseEntity.ok(pageService.getPageBySlug(slug));
     }
 

@@ -9,4 +9,5 @@ public interface PageService {
     Page getPageBySlug(String slug);
     Page savePage(Page page); // Sirve para crear y actualizar
     void deletePage(Long id);
+    Page getPublicPageBySlug(String slug);
 }

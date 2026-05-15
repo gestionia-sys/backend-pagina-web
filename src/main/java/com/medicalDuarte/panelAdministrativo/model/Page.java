@@ -23,7 +23,9 @@ public class Page {
 
     private String title;
 
-    private boolean published;
+    @Enumerated(EnumType.STRING) // Guarda el texto "DRAFT" en Postgres, no un número
+    @Builder.Default
+    private PageStatus status = PageStatus.DRAFT;
 
     // Asegúrate de que este nombre coincida con el atributo 'page' en PageSection
     @OneToMany(mappedBy = "page", cascade = CascadeType.ALL, orphanRemoval = true)

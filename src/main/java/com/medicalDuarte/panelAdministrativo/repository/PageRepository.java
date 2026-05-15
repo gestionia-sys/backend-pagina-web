@@ -1,6 +1,7 @@
 package com.medicalDuarte.panelAdministrativo.repository;
 
 import com.medicalDuarte.panelAdministrativo.model.Page;
+import com.medicalDuarte.panelAdministrativo.model.PageStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,4 +14,6 @@ public interface PageRepository extends JpaRepository<Page, Long> {
 
     // Para saber si una URL ya existe antes de crear una nueva
     boolean existsBySlug(String slug);
+
+    Optional<Page> findBySlugAndStatus(String slug, PageStatus status);
 }

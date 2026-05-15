@@ -1,6 +1,7 @@
 package com.medicalDuarte.panelAdministrativo.service.impl;
 
 import com.medicalDuarte.panelAdministrativo.model.Page;
+import com.medicalDuarte.panelAdministrativo.model.PageStatus;
 import com.medicalDuarte.panelAdministrativo.repository.PageRepository;
 import com.medicalDuarte.panelAdministrativo.service.PageService;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,13 @@ public class PageServiceImpl implements PageService {
     public Page getPageBySlug(String slug) {
         return pageRepository.findBySlug(slug)
                 .orElseThrow(() -> new RuntimeException("La página con slug '" + slug + "' no existe."));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page getPublicPageBySlug(String slug) {
+        return pageRepository.findBySlugAndStatus(slug, PageStatus.PUBLISHED)
+                .orElseThrow(() -> new RuntimeException("La página no existe o aún es un borrador."));
     }
 
     @Override
